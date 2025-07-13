@@ -7,6 +7,10 @@ const reviewSchema = new Schema({
         required: true,
         maxLength: 5800
     },
+    commentAuthor: {
+        type: String,
+        required: true,
+    },
     createdAt: {
         type: Date,
         default: Date.now,

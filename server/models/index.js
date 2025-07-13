@@ -5,4 +5,4 @@ const Review = require('./Review');
 const Category = require('./Category');
 
 
-module.exports = { User, Product, Order, Review };
+module.exports = { User, Product, Order, Review, Category };

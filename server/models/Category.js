@@ -13,7 +13,17 @@ const categorySchema = new Schema({
     products: [{
         type: Schema.Types.ObjectId,
         ref: 'Product',
-    }]
+    }],
+    createdAt: {
+        type: Date,
+        default: Date.now,
+        get: (date) => { return date.toDateString()}
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now,
+        get: (date) => { return date.toDateString()}
+    }
 },
 {
     toJSON: {

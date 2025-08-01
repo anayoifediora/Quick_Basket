@@ -1,44 +1,44 @@
 [{
-    "name": "Apple iPhone 14 Pro",
+    "productName": "Apple iPhone 14 Pro",
     "description": "The latest iPhone with advanced features and stunning design.",
     "price": 999.99,
     "category": "Electronics",
     "images": ["https://example.com/images/iphone14pro.jpg"],
     "stock": 50,
-    "rating": 3,
+    "averageRating": 3,
     "createdAt": "2023-10-01T12:00:00Z",
     "updatedAt": "2023-10-01T12:00:00Z"
   },
   {
-    "name": "Samsung Galaxy S23 Ultra",
+    "productName": "Samsung Galaxy S23 Ultra",
     "description": "A premium smartphone with a powerful camera and sleek design.",
     "price": 1199.99,
     "category": "Electronics",
     "images": ["https://example.com/images/galaxys23ultra.jpg"],
     "stock": 30,
-    "rating": 5,
+    "averageRating": 5,
     "createdAt": "2023-10-01T12:00:00Z",
     "updatedAt": "2023-10-01T12:00:00Z"
 },
   {
-    "name": "Sony WH-1000XM5",
+    "productName": "Sony WH-1000XM5",
     "description": "Industry-leading noise-canceling headphones with exceptional sound quality.",
     "price": 349.99,
     "category": "Electronics",
     "images": ["https://example.com/images/sonywh1000xm5.jpg"],
     "stock": 100,
-    "rating": 4,
+    "averageRating": 4,
     "createdAt": "2023-10-01T12:00:00Z",
     "updatedAt": "2023-10-01T12:00:00Z"
   },
   {
-    "name": "Dell XPS 13",
+    "productName": "Dell XPS 13",
     "description": "A powerful and portable laptop with a stunning display.",
     "price": 1299.99,
     "category": "Computers",
     "images": ["https://example.com/images/dellxps13.jpg"],
     "stock": 20,
-    "rating": 4,
+    "averageRating": 4,
     "createdAt": "2023-10-01T12:00:00Z",
     "updatedAt": "2023-10-01T12:00:00Z"
   }

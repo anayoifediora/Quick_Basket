@@ -1,15 +1,24 @@
 const { Schema, model } = require('mongoose');
+// const Product = require('./Product');
 
 const reviewSchema = new Schema({
 
-    comment: {
+    productId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Product'
+    },
+    reviewText: {
         type: String,
         required: true,
         maxLength: 5800
     },
-    commentAuthor: {
+    reviewAuthor: {
         type: String,
         required: true,
+    },
+    rating: {
+        type: Number,
+        required: true
     },
     createdAt: {
         type: Date,
@@ -25,6 +34,7 @@ const reviewSchema = new Schema({
     //Allows saving sub-documents without an _id property
     id: false,
 })
+
 
 const Review = model('Review', reviewSchema);
 

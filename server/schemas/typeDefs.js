@@ -81,6 +81,7 @@ const typeDefs = `
     }
 
     type Query {
+        me: User  
         users: [User]
         products: [Product]
         product(productId: ID!): Product

@@ -8,7 +8,10 @@ const resolvers = {
   Query: {
     //Lists all users
     users: async () => {
-      return await User.find().populate('orders');
+      return await User.find().populate({
+        path: 'orders',
+        populate: 'products'
+      });
     },
     //List all products
     products: async () => {
@@ -24,12 +27,26 @@ const resolvers = {
     },
     //List all orders
     orders: async () => {
-      return await Order.find();
+      return await Order.find().populate('products');
     },
     //List an Order by Id
     order: async (parent, { orderId }) => {
       const order = await Order.findOne({ _id: orderId });
       return order;
+    },
+    //Request to GET a loggedin User
+    me: async (parent, args, context) => {
+      console.log(context)
+      if(context.user) {
+        const userData = await User.findOne({ _id: context.user._id }).select('-__v -password').populate('orders');
+        console.log(userData);
+        return userData;
+      }
+      throw new GraphQLError("Not Logged In!", {
+          extensions: {
+            code: "BAD_USER_INPUT",
+          },
+        });;
     }
   },
 
@@ -157,7 +174,15 @@ const resolvers = {
     },
 
     //Create an Order
-    createOrder: async (parent, { userId, products, totalPrice, deliveryAddress }) => {
+    createOrder: async (parent, { userId, products, totalPrice, deliveryAddress }, context ) => {
+      // console.log(context);
+      // if(!context.user) {
+      //   throw new GraphQLError("You must be logged in!", {
+      //     extensions: {
+      //       code: "BAD_USER_INPUT",
+      //     },
+      //   });
+      // }
       try {
         const formattedProducts= products.map(item => ({
           productId: item.productId,
@@ -167,6 +192,7 @@ const resolvers = {
         }));
 
         const order = await Order.create({
+          userId,
           products: formattedProducts,
           totalPrice,
           deliveryAddress

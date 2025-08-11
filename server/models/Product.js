@@ -4,7 +4,7 @@ const { Schema, model } = require('mongoose');
 
 const productSchema = new Schema({
 
-    name: {
+    productName: {
         type: String,
         required: true,
         trim: true,
@@ -31,7 +31,7 @@ const productSchema = new Schema({
         type: [String],
         default: []
     },
-    rating: {
+    averageRating: {
         type: Number
     },
     reviews: [{
@@ -55,6 +55,14 @@ const productSchema = new Schema({
         },
         id: false,
 })
+
+productSchema.methods.isAvailable = async function() {
+    if (this.stock > 0) {
+        return true;
+    } else {
+        throw new Error('Product not available!')
+    }
+}
 
 const Product = model('Product', productSchema);
 

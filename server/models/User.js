@@ -36,6 +36,11 @@ const userSchema = new Schema({
         required: true,
         minLength: 8,
     },
+    role: {
+        type: String,
+        enum: ['customer', 'admin'],
+        default: "customer"
+    },
     phone: {
         type: String,
         validate: {

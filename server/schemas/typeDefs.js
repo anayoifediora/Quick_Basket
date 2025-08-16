@@ -145,6 +145,7 @@ const typeDefs = `
         createOrder(userId: ID!, products: [ProductInput]!, totalPrice: Float!, deliveryAddress: AddressInput!): Order
         addReview(productId: ID!, reviewText: String!, reviewAuthor: String!, rating: Int!): Product
         removeReview(productId: ID!, reviewId: ID!): Product
+        updatePassword(email: String!, oldPassword: String!, newPassword: String!): User
 
     }
 `;

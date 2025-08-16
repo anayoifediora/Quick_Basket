@@ -1,6 +1,7 @@
 const { ApolloServer } = require("@apollo/server");
 const { GraphQLError } = require("graphql");
 const { signToken } = require("../utils/auth");
+const bcrypt = require("bcrypt");
 
 const { User, Product, Category, Order, Review } = require("../models");
 
@@ -9,13 +10,13 @@ const resolvers = {
     //Lists all users
     users: async () => {
       return await User.find().populate({
-        path: 'orders',
-        populate: 'products'
+        path: "orders",
+        populate: "products",
       });
     },
     //List all products
     products: async () => {
-      return await Product.find().populate('reviews');
+      return await Product.find().populate("reviews");
     },
     //List a product by Id
     product: async (parent, { productId }) => {
@@ -23,11 +24,11 @@ const resolvers = {
     },
     //List all categories
     categories: async () => {
-      return await Category.find().populate('products');
+      return await Category.find().populate("products");
     },
     //List all orders
     orders: async () => {
-      return await Order.find().populate('products');
+      return await Order.find().populate("products");
     },
     //List an Order by Id
     order: async (parent, { orderId }) => {
@@ -36,18 +37,20 @@ const resolvers = {
     },
     //Request to GET a loggedin User
     me: async (parent, args, context) => {
-      console.log(context)
-      if(context.user) {
-        const userData = await User.findOne({ _id: context.user._id }).select('-__v -password').populate('orders');
+      console.log(context);
+      if (context.user) {
+        const userData = await User.findOne({ _id: context.user._id })
+          .select("-__v -password")
+          .populate("orders");
         console.log(userData);
         return userData;
       }
       throw new GraphQLError("Not Logged In!", {
-          extensions: {
-            code: "BAD_USER_INPUT",
-          },
-        });;
-    }
+        extensions: {
+          code: "BAD_USER_INPUT",
+        },
+      });
+    },
   },
 
   Mutation: {
@@ -72,6 +75,7 @@ const resolvers = {
     //Logs in a user by checking email and password
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
+
       if (!user) {
         throw new GraphQLError("Incorrect Email or Password!", {
           extensions: {
@@ -104,6 +108,32 @@ const resolvers = {
       );
       return user;
     },
+    //Updates User Password
+    updatePassword: async (parent, { email, oldPassword, newPassword }) => {
+      const user = await User.findOne({ email });
+      if (!user) {
+        throw new Error("User not found.");
+      }
+      //Verify old password is correct.
+      const isCorrectOldPassword = await bcrypt.compare(
+        oldPassword,
+        user.password
+      );
+
+      if (!isCorrectOldPassword) {
+        throw new Error("Old password is incorrect!");
+      }
+      //Ensure new password is not the same as old one
+      const isPasswordSame = await bcrypt.compare(newPassword, user.password);
+      if (isPasswordSame) {
+        throw new Error("Please use a different password!");
+      }
+
+      user.password = newPassword;
+      await user.save();
+
+      return user;
+    },
 
     //Deletes a User
     // removeUser: async (parent, { userId }) => {
@@ -113,7 +143,16 @@ const resolvers = {
     //Creates a new product
     addProduct: async (
       parent,
-      { productName, description, price, category, brand, stock, images, categoryId }
+      {
+        productName,
+        description,
+        price,
+        category,
+        brand,
+        stock,
+        images,
+        categoryId,
+      }
     ) => {
       const product = await Product.create({
         productName,
@@ -127,7 +166,7 @@ const resolvers = {
 
       await Category.findOneAndUpdate(
         { _id: categoryId },
-        { $addToSet: { products: product._id }},
+        { $addToSet: { products: product._id } },
         { runValidators: true, new: true }
       );
       return product;
@@ -136,8 +175,17 @@ const resolvers = {
     //Updates a product info
     updateProduct: async (
       parent,
-      { productId, productName, description, price, category, brand, stock, images }
-      ) => {
+      {
+        productId,
+        productName,
+        description,
+        price,
+        category,
+        brand,
+        stock,
+        images,
+      }
+    ) => {
       const product = await Product.findOneAndUpdate(
         { _id: productId },
         { productName, description, price, category, brand, stock, images },
@@ -154,17 +202,20 @@ const resolvers = {
 
     //Create a Category
     addCategory: async (parent, { categoryName, description }) => {
-      const category = Category.create({ categoryName, description});
+      const category = Category.create({ categoryName, description });
       return category;
     },
 
     //Update a Category
-    updateCategory: async (parent, { categoryId, categoryName, description }) => {
+    updateCategory: async (
+      parent,
+      { categoryId, categoryName, description }
+    ) => {
       const updatedCategory = await Category.find(
         { _id: categoryId },
         { categoryName, description },
         { new: true }
-      )
+      );
       return updatedCategory;
     },
 
@@ -174,7 +225,11 @@ const resolvers = {
     },
 
     //Create an Order
-    createOrder: async (parent, { userId, products, totalPrice, deliveryAddress }, context ) => {
+    createOrder: async (
+      parent,
+      { userId, products, totalPrice, deliveryAddress },
+      context
+    ) => {
       // console.log(context);
       // if(!context.user) {
       //   throw new GraphQLError("You must be logged in!", {
@@ -184,18 +239,18 @@ const resolvers = {
       //   });
       // }
       try {
-        const formattedProducts= products.map(item => ({
+        const formattedProducts = products.map((item) => ({
           productId: item.productId,
           productName: item.productName,
           price: item.price,
-          quantity: item.quantity
+          quantity: item.quantity,
         }));
 
         const order = await Order.create({
           userId,
           products: formattedProducts,
           totalPrice,
-          deliveryAddress
+          deliveryAddress,
         });
 
         for (const productItem of order.products) {
@@ -203,34 +258,44 @@ const resolvers = {
             productItem.productId,
             { $inc: { stock: -productItem.quantity } },
             { new: true }
-          )
+          );
         }
 
         await User.findOneAndUpdate(
           { _id: userId },
           { $addToSet: { orders: order._id } },
           { new: true }
-        )
+        );
         return order;
-      } catch(error) {
+      } catch (error) {
         throw new Error(error.message);
       }
     },
 
     //Add a review
-    addReview: async (parent, {productId, reviewText, reviewAuthor, rating }) => {
-      const review = await Review.create({ reviewText, reviewAuthor, rating, productId });
+    addReview: async (
+      parent,
+      { productId, reviewText, reviewAuthor, rating }
+    ) => {
+      const review = await Review.create({
+        reviewText,
+        reviewAuthor,
+        rating,
+        productId,
+      });
       const product = await Product.findOneAndUpdate(
         { _id: productId },
         { $addToSet: { reviews: review._id } },
         { new: true, runValidators: true }
-
       );
       //Populate reviews to compute updated average rating
-      const productWithNewRating = await product.populate('reviews');
+      const productWithNewRating = await product.populate("reviews");
 
-      const productRatings = productWithNewRating.reviews.map((review) => review.rating);
-      const avgRating = productRatings.reduce((a, b) => a + b, 0) / productRatings.length;
+      const productRatings = productWithNewRating.reviews.map(
+        (review) => review.rating
+      );
+      const avgRating =
+        productRatings.reduce((a, b) => a + b, 0) / productRatings.length;
       //Save new averageRating to product
       productWithNewRating.averageRating = avgRating;
       await productWithNewRating.save();
@@ -241,16 +306,13 @@ const resolvers = {
     removeReview: async (parent, { productId, reviewId }) => {
       const product = await Product.findOneAndUpdate(
         { _id: productId },
-        { $pull: { reviews: reviewId }},
+        { $pull: { reviews: reviewId } },
         { new: true }
       );
 
       return product;
-    }
+    },
   },
-
-  
-  
 };
 
 module.exports = resolvers;

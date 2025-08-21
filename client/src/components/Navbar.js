@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import Auth from '../utils/auth';
 
 const Navbar = () => {
 
+    const logout = (event) => {
+        event.preventDefault();
+        Auth.logout();
+        window.location.assign("/");
+    }
 
     return (
         
@@ -17,7 +22,7 @@ const Navbar = () => {
 
             </ul>
             <ul className="nav-menu">
-                <li ><Link className="nav-link" to="/login">Login</Link></li>
+                {Auth.loggedIn() ? (<li className='nav-link' onClick={logout}>Logout</li>) : ( <li ><Link className="nav-link" to="/login">Login</Link></li>) }
                 <li ><Link className="nav-link" to="/signup">Sign Up</Link></li>
             </ul>
         </nav>

@@ -4,22 +4,31 @@ import Navbar from '../components/Navbar';
 const Home = () => {
     
     return (
+        <div>
+            {/* <Navbar/> */}
+            <section className="banner">
+                <Navbar/>
+                <div className="banner-content">
+                    <h1>QuickBasket</h1>
 
-        <div className="home-page">
-            <Navbar/>
-            <div class="slideshow">
-                <div class="slide fade">
-                    <img src="https://images.pexels.com/photos/574071/pexels-photo-574071.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="City at night"/>
+                    <h3>Shop Smart... Shop Fast.</h3>
                 </div>
-                <div class="slide fade">
-                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1350&q=80" alt="Beach sunrise"/>
-                </div>
-                <div class="slide fade">
-                    <img src="https://images.unsplash.com/photo-1506765515384-028b60a970df?auto=format&fit=crop&w=1350&q=80" alt="Abstract waves"/>
-                </div>
-            </div>
 
+            </section>
 
+            <section className='products-section'>
+                <div>
+                    <h3 className='fs-1'>Products</h3>
+                    <p>
+                    Shop our range of products, from fragrances to mobile phones, computes and much more!  
+                    </p>
+                    <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour</p>
+                    <button>View Products</button>
+                </div>
+                <img className='products-banner' src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1350&q=80" alt="products-banner"/>
+                
+            </section>
+        
         </div>
     )
 }

@@ -9,7 +9,6 @@ const Navbar = () => {
         Auth.logout();
         window.location.assign("/");
     }
-
     return (
         
         <nav>
@@ -24,7 +23,7 @@ const Navbar = () => {
             <ul className="nav-menu">
                 {Auth.loggedIn() ? (<li className='nav-link' onClick={logout}>Logout</li>) : ( <li ><Link className="nav-link" to="/login">Login</Link></li>) }
                 <li ><Link className="nav-link" to="/signup">Sign Up</Link></li>
-            </ul>
+            </ul> 
         </nav>
     )
 }

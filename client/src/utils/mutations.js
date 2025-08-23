@@ -12,3 +12,25 @@ export const LOGIN_USER = gql`
         }
     }
 `
+//Mutation to create a user
+export const ADD_USER = gql`
+    mutation Mutation($username: String!, $email: String!, $password: String!, $firstName: String!, $lastName: String!, $phone: String!, $address: AddressInput!) {
+        addUser(username: $username, email: $email, password: $password, firstName: $firstName, lastName: $lastName, phone: $phone, address: $address) {
+            token
+            user {
+                username
+                firstName
+                lastName
+                email
+                phone
+                role
+                address {
+                    postCode
+                    state
+                    street
+                    suburb
+                }
+            }
+        }
+    }
+`

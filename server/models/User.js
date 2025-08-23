@@ -35,6 +35,13 @@ const userSchema = new Schema({
         type: String,
         required: true,
         minLength: 8,
+        validate: {
+            validator: function(value) {
+                // must contain at least one number and one uppercase letter
+                return /^(?=.*[A-Z])(?=.*\d).+$/.test(value);
+            },
+            message: props => `Password must contain at least one uppercase letter and one number`
+        }
     },
     role: {
         type: String,

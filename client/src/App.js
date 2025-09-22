@@ -14,6 +14,7 @@ import Home from "../src/pages/Home";
 import Login from "../src/pages/Login";
 import SignUp from "../src/pages/SignUp";
 import Products from '../src/pages/Products';
+import ProductPage from "./pages/ProductPage";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -45,6 +46,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/products" element={<Products />} />
+          <Route path="/products/:productId" element={<ProductPage />} />
+
         </Routes>
       </Router>
     </ApolloProvider>

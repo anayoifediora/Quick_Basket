@@ -11,15 +11,15 @@ import ProfileDisplay from "../components/ProfileDisplay";
 
 //Returns the "Products" page which displays all products
 
-const Products = () => {
+const Products = ({ cart, dispatch }) => {
   const { loading, data, error } = useQuery(QUERY_ALL_PRODUCTS);
   const products = data?.products || [];
-
+ 
 
   return (
     <div className="d-flex flex-column align-items-center">
       <div className="custom-main-header">
-        <ProfileDisplay />
+        <ProfileDisplay cart={cart}/>
         <Navbar />
       </div>
       <div className="custom-product-page">
@@ -38,7 +38,7 @@ const Products = () => {
                               <p className="product-rating">Rating: {product.averageRating} stars</p>
       
                           </div>
-                          <button className="custom-addToCart-btn bi bi-plus-square"> Add to cart</button>
+                          <button className="custom-addToCart-btn align-self-center"> Add to cart</button>
 
                       </div>
                     

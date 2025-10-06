@@ -16,9 +16,8 @@ import { ratingConverter } from "../utils/helpers";
 
 const ProductPage = ({ cart, dispatch }) => {
   let [imageIndex, setImageIndex] = useState(0);
-//   let [cart, setCart] = useState(
-//     JSON.parse(localStorage.getItem("cart")) || []
-//   );
+  const [activeTab, setActiveTab] = useState("description");
+
   //Functions to handle image gallery index increase/decrease
   const handleImageIndexIncrease = () => {
     if (imageIndex >= 0 && imageIndex < 2) {
@@ -50,8 +49,8 @@ const ProductPage = ({ cart, dispatch }) => {
     if (!Auth.loggedIn()) {
       alert(`kindly log in to proceed with purchase!`);
     } else {
-        //Q: I'm getting a TypeError that says "dispatch is not a function" here. Why?
-        //A: You need to pass dispatch as a prop from the parent component (App.js) to this component (ProductPage.js) and then use it here.
+      //Q: I'm getting a TypeError that says "dispatch is not a function" here. Why?
+      //A: You need to pass dispatch as a prop from the parent component (App.js) to this component (ProductPage.js) and then use it here.
       dispatch(addToCart(product));
       console.log(cart);
     }
@@ -68,28 +67,37 @@ const ProductPage = ({ cart, dispatch }) => {
         ) : (
           <div className="product-layout">
             <div>
-              <i
-                className="custom-left-image-btn bi bi-arrow-left-circle"
-                onClick={handleImageIndexDecrease}
-              ></i>
-              <img
-                className="product-image-gallery"
-                src={product.images[imageIndex]}
-                alt="product-image"
-              />
-              <i
-                className="custom-right-image-btn bi bi-arrow-right-circle"
-                onClick={handleImageIndexIncrease}
-              ></i>
+                {/* Image gallery section */}
+                <div className="image-gallery-section">
+                    <i
+                        className="custom-left-image-btn bi bi-chevron-left"
+                        onClick={handleImageIndexDecrease}
+                    ></i>
+                    
+                    <img
+                        className="product-image-gallery"
+                        src={product.images[imageIndex]}
+                        alt="product-image"
+                    />
+                    <i
+                        className="custom-right-image-btn bi bi-chevron-right"
+                        onClick={handleImageIndexIncrease}
+                    ></i>
+                    
+
+                </div>
               <section className="product-info">
                 <p>{product.productName}</p>
-                <p>${product.price}</p>
-                <p>{product.description}</p>
+                <p className='fs-1'>${product.price}</p>
+                {/* <p>{product.description}</p> */}
                 <p>Rating: {product.averageRating}🌟</p>
                 <p>Stock Left: {product.stock}</p>
                 <p>Reviews: {product.reviews.length}</p>
                 <p>Write a review</p>
-                <button onClick={handleAddToCart} className="custom-addToCart-btn">
+                <button
+                  onClick={handleAddToCart}
+                  className="custom-addToCart-btn"
+                >
                   {" "}
                   Add to cart
                 </button>
@@ -97,21 +105,35 @@ const ProductPage = ({ cart, dispatch }) => {
             </div>
 
             <section className="reviews-section">
-              <h3>Reviews</h3>
-              {product.reviews.map((review, index) => (
-                <div className="user-review" key={index}>
-                  <p className="user-initial text-light">
-                    {review.reviewAuthor.split("").shift().toUpperCase()}
-                  </p>
-                  <em>
-                    {review.reviewAuthor}
-                    <span> on {review.createdAt}</span>
-                  </em>
+              <h3
+                style={{ cursor: "pointer" }}
+                onClick={() => setActiveTab("description")}
+              >
+                Product Description
+              </h3>
+              {activeTab === "description" && <p>{product.description}</p>}
 
-                  <p className="review-text">{review.reviewText}</p>
-                  <p>Rating: {ratingConverter(review.rating)}</p>
-                </div>
-              ))}
+              <h3
+                style={{ cursor: "pointer" }}
+                onClick={() => setActiveTab("reviews")}
+              >
+                Reviews
+              </h3>
+              {activeTab === "reviews" && product.reviews?.length > 0
+                ? product.reviews.map((review, index) => (
+                    <div className="user-review" key={index}>
+                      <p className="user-initial text-light">
+                        {review.reviewAuthor.charAt(0).toUpperCase()}
+                      </p>
+                      <em>
+                        {review.reviewAuthor}
+                        <span> on {review.createdAt}</span>
+                      </em>
+                      <p className="review-text">{review.reviewText}</p>
+                      <p>Rating: {ratingConverter(review.rating)}</p>
+                    </div>
+                  ))
+                : activeTab === "reviews" && <p>No reviews yet.</p>}
             </section>
           </div>
         )}

@@ -64,7 +64,7 @@ body {
 .profile-display {
   background-color: rgb(50, 48, 48);
   color: white;
-  padding: 20px;
+  padding: 10px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -353,9 +353,15 @@ i:hover {
   width: 95%;
   
 }
+.image-gallery-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  width: 600px;
+}
 .product-image-gallery {
-  height: 600px;
-  width: 550px;
   padding: 20px;
   object-fit: cover;
   border: 2px solid rgba(0, 0, 0, 0.1);
@@ -372,18 +378,19 @@ i:hover {
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
+  margin-bottom: 20px;
  
   
 }
 .product-info {
   display: flex;
   flex-direction: column;
-  width: 550px;
   
 }
 .product-info > p:nth-child(-n + 2) {
   font-size: 1.8rem;
   font-weight: 500;
+  margin-top: 0.6rem;
 
 }
 
@@ -391,6 +398,7 @@ i:hover {
   font-size: 1.2rem;
   font-weight: 400;
   text-wrap: wrap;
+  margin-top: 0.6rem;
   
 }
 
@@ -399,11 +407,18 @@ i:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 20px;
   
 }
 .reviews-section > h3 {
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 600;
+  background-color: #f0f0f0;
+  width: 60%;
+  padding: 10px;
+  margin: 0;
+  border-bottom: 0.1px solid rgb(53, 50, 50);
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
 }
 .user-review {
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -411,7 +426,8 @@ i:hover {
   padding: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   width: 60%;
-  background-color: white;
+  background-color: #f9f9f9;
+  margin: 10px;
 
 }
 
@@ -437,24 +453,21 @@ i:hover {
   justify-content: center;
   margin-right: 10px;
 }
-.custom-left-image-btn {
+.custom-left-image-btn, .custom-right-image-btn {
   font-size: 2.4rem;
-  position:relative;
-  left: 80px;
 }
-.custom-right-image-btn {
-  font-size: 2.4rem;
-  position:relative;
-  right: 80px;
 
-}
 .custom-left-image-btn:hover,
 .custom-right-image-btn:hover {
   cursor: pointer;
-  color: grey;
+  color: var(--theme);
   transition: all 0.3s ease-in-out;
   font-size: 2.6rem;
 }
+
+
+
+
 
 /* Media Queries for responsiveness */
 
@@ -464,18 +477,10 @@ i:hover {
     gap: 40px;
   }
   .product-image-gallery {
-  height: 450px;
+  height: 550px;
   width: 400px;
   }
-.custom-left-image-btn {
-  position:relative;
-  left: 40px;
-}
-.custom-right-image-btn {
-  position:relative;
-  right: 40px;
 
-}
 }
 @media screen and (max-width: 1200px) {
   .header {
@@ -502,15 +507,7 @@ i:hover {
   width: 400px;
   }
 
-.custom-left-image-btn {
-  position:relative;
-  left: 30px;
-}
-.custom-right-image-btn {
-  position:relative;
-  right: 30px;
 
-}
 .product-info {
   width: 400px;
 }

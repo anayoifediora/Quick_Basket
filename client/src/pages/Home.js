@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 
 import ProfileDisplay from "../components/ProfileDisplay";
 
-const Home = () => {
+const Home = ({ cart }) => {
   let photoArray = [
     "https://res.cloudinary.com/ddn6rojif/image/upload/v1757724334/Giorgio_Armani_Acqua_di_gio_EDP_1_vr2wne.jpg",
     "https://res.cloudinary.com/ddn6rojif/image/upload/v1757723665/Sony_WH-1000XM5_1_tdgpqy.webp",
@@ -17,7 +17,7 @@ const Home = () => {
   return (
     <div className="d-flex flex-column align-items-center">
       <div className="custom-main-header">
-        <ProfileDisplay />
+        <ProfileDisplay cart={cart} />
         <Navbar />
       </div>
       <section className="banner">

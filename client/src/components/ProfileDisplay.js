@@ -10,7 +10,7 @@ const ProfileDisplay = ({ cart }) => {
     Auth.logout();
     window.location.assign("/");
   };
- console.log(cart)
+ 
 
  
 

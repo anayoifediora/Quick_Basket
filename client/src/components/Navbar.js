@@ -29,7 +29,7 @@ const Navbar = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div
-            className="collapse navbar-collapse ms-5"
+            className="collapse navbar-collapse"
             id="navbarSupportedContent"
           >
             <ul className="custom-nav-menu nav nav-pills">

@@ -84,10 +84,10 @@ body {
   
 }
 .cart-length {
-  background-color: var(--theme);
-  color: black;
-  font-weight: 700;
-  font-size: 0.8rem;
+  background-color: rgb(148, 24, 24);
+  color: white;
+  font-weight: 600;
+  font-size: 0.7rem;
   border-radius: 50%;
   padding: 3px 7px;
   position: relative;
@@ -179,9 +179,9 @@ button {
   background-color: var(--theme);
   border-radius: 10px;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  padding: 11px;
+  padding: 9px;
   color: black;
-  font-weight: 600;
+  font-weight: 400;
 }
 button:hover {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
@@ -359,13 +359,15 @@ i:hover {
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
-  width: 600px;
+  width: 600px;;
 }
 .product-image-gallery {
   padding: 20px;
   object-fit: cover;
   border: 2px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  height: 475px;
+  width: 450px;
 }
 .product-layout {
   display: flex;
@@ -385,7 +387,7 @@ i:hover {
 .product-info {
   display: flex;
   flex-direction: column;
-  
+  width: 450px;
 }
 .product-info > p:nth-child(-n + 2) {
   font-size: 1.8rem;
@@ -401,6 +403,14 @@ i:hover {
   margin-top: 0.6rem;
   
 }
+.custom-review-btn {
+  align-self: flex-start;
+  background-color:gold;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-left: 20px;
+  text-decoration: underline;
+}
 
 .reviews-section {
   margin-top: 50px;
@@ -408,6 +418,7 @@ i:hover {
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
   
 }
 .reviews-section > h3 {
@@ -421,13 +432,14 @@ i:hover {
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
 }
 .user-review {
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 2px solid rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   padding: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  width: 60%;
+  width: 50%;
   background-color: #f9f9f9;
   margin: 10px;
+
 
 }
 
@@ -476,10 +488,7 @@ i:hover {
     grid-template-columns: repeat(3, 1fr);
     gap: 40px;
   }
-  .product-image-gallery {
-  height: 550px;
-  width: 400px;
-  }
+  
 
 }
 @media screen and (max-width: 1200px) {
@@ -503,7 +512,7 @@ i:hover {
     height: 325px;
   }
   .product-image-gallery {
-  height: 450px;
+  height: 550px;
   width: 400px;
   }
 

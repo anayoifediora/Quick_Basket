@@ -18,6 +18,7 @@ export const QUERY_SINGLE_PRODUCT = gql`
   query Query($productId: ID!) {
     product(productId: $productId) {
       reviews {
+        _id
         createdAt
         rating
         reviewAuthor

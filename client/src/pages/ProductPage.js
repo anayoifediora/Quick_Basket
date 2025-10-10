@@ -9,6 +9,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ProfileDisplay from "../components/ProfileDisplay";
 import Auth from "../utils/auth";
+import ReviewForm from "../components/ReviewForm";
 
 import { QUERY_SINGLE_PRODUCT } from "../utils/queries";
 
@@ -49,8 +50,7 @@ const ProductPage = ({ cart, dispatch }) => {
     if (!Auth.loggedIn()) {
       alert(`kindly log in to proceed with purchase!`);
     } else {
-      //Q: I'm getting a TypeError that says "dispatch is not a function" here. Why?
-      //A: You need to pass dispatch as a prop from the parent component (App.js) to this component (ProductPage.js) and then use it here.
+      
       dispatch(addToCart(product));
       console.log(cart);
     }
@@ -89,11 +89,22 @@ const ProductPage = ({ cart, dispatch }) => {
               <section className="product-info">
                 <p>{product.productName}</p>
                 <p className='fs-1'>${product.price}</p>
-                {/* <p>{product.description}</p> */}
-                <p>Rating: {product.averageRating}🌟</p>
+                <p>Rating: {product.averageRating}<span className="m-1"><i style={{color: 'gold'}}class="bi bi-star-fill"></i></span></p>
                 <p>Stock Left: {product.stock}</p>
-                <p>Reviews: {product.reviews.length}</p>
-                <p>Write a review</p>
+                <p>Reviews: {product.reviews.length}
+
+                  {/* <!-- Button that triggers review modal --> */}
+                  <span
+                    type="button"
+                    className="custom-review-btn btn"
+                    data-bs-toggle="modal"
+                    data-bs-target="#reviewModal"
+                  >
+                    Write a review
+                  </span>
+                </p>
+
+                
                 <button
                   onClick={handleAddToCart}
                   className="custom-addToCart-btn"
@@ -112,7 +123,7 @@ const ProductPage = ({ cart, dispatch }) => {
                 Product Description
               </h3>
               {activeTab === "description" && <p>{product.description}</p>}
-
+              
               <h3
                 style={{ cursor: "pointer" }}
                 onClick={() => setActiveTab("reviews")}
@@ -137,6 +148,7 @@ const ProductPage = ({ cart, dispatch }) => {
             </section>
           </div>
         )}
+        <ReviewForm productId = {productId}/>
       </div>
       <Footer />
     </div>

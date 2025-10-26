@@ -11,6 +11,8 @@ import ProfileDisplay from "../components/ProfileDisplay";
 import Auth from "../utils/auth";
 import ReviewForm from "../components/ReviewForm";
 
+//Utility functions
+import { priceFormatter } from "../utils/helpers";
 import { QUERY_SINGLE_PRODUCT } from "../utils/queries";
 
 import { ratingConverter } from "../utils/helpers";
@@ -44,7 +46,6 @@ const ProductPage = ({ cart, dispatch }) => {
   const product = data?.product || {};
 
   // Function to add to cart
-  // let cartArray = JSON.parse(localStorage.getItem('cart')) || [];
 
   const handleAddToCart = () => {
     if (!Auth.loggedIn()) {
@@ -52,7 +53,6 @@ const ProductPage = ({ cart, dispatch }) => {
     } else {
       
       dispatch(addToCart(product));
-      console.log(cart);
     }
   };
   return (
@@ -88,7 +88,7 @@ const ProductPage = ({ cart, dispatch }) => {
                 </div>
               <section className="product-info">
                 <p>{product.productName}</p>
-                <p className='fs-1'>${product.price}</p>
+                <p className='fs-1'>${priceFormatter(product.price)}</p>
                 <p>Rating: {product.averageRating}<span className="m-1"><i style={{color: 'gold'}}class="bi bi-star-fill"></i></span></p>
                 <p>Stock Left: {product.stock}</p>
                 <p>Reviews: {product.reviews.length}
@@ -122,7 +122,7 @@ const ProductPage = ({ cart, dispatch }) => {
               >
                 Product Description
               </h3>
-              {activeTab === "description" && <p>{product.description}</p>}
+              {activeTab === "description" && <p className="m-3">{product.description}</p>}
               
               <h3
                 style={{ cursor: "pointer" }}
@@ -138,10 +138,11 @@ const ProductPage = ({ cart, dispatch }) => {
                       </p>
                       <em>
                         {review.reviewAuthor}
-                        <span> on {review.createdAt}</span>
+                        <span> on {(review.createdAt)}</span>
                       </em>
                       <p className="review-text">{review.reviewText}</p>
                       <p>Rating: {ratingConverter(review.rating)}</p>
+                    
                     </div>
                   ))
                 : activeTab === "reviews" && <p>No reviews yet.</p>}

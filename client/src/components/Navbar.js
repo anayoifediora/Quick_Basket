@@ -3,11 +3,15 @@ import { Link } from "react-router-dom";
 import Auth from "../utils/auth";
 
 const Navbar = () => {
+
+
   const logout = (event) => {
     event.preventDefault();
     Auth.logout();
     window.location.assign("/");
   };
+  
+  
   return (
     <div className="custom-header container-fluid">
       <Link className="title-section" to="/">

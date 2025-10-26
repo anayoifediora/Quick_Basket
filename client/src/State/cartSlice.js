@@ -1,19 +1,35 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
+import Auth from '../utils/auth';
+
+//Get the current username (or use "guest" if not logged in);
+const username = Auth.loggedIn() ? Auth.getProfile().data.username : 'guest';
+
+//Use the username to create a unique key
+const cartKey = `cart${username}`
 
 export const cartSlice = createSlice({
-    name:"cart",
-    initialState: JSON.parse(localStorage.getItem('cart')) || [],
-    reducers: {
-        addToCart: (state, action) => {
-            state.push(action.payload);
-            localStorage.setItem('cart', JSON.stringify(state))
-        },
-        removeFromCart: (state, action) => {
-            let newState = state.filter((product) => product.id !== action.payload.id);
-            localStorage.setItem('cart', JSON.stringify(newState));
-            return newState;
-        }
-    }
+  name: "cart",
+  initialState: JSON.parse(localStorage.getItem(cartKey)) || [],
+  reducers: {
+    //Add a product to the cart
+    addToCart: (state, action) => {
+      //Push the new product to the state array
+      state.push(action.payload);
+      //Save updated cart in local storage to persist data across refreshes
+      localStorage.setItem(cartKey, JSON.stringify(state));
+    },
+    //Remove a specific product from the cart by its ID
+    removeFromCart: (state, action) => {
+      //Filter out the product that matches the given ID
+      let newState = state.filter(
+        (product) => product._id !== action.payload._id
+      );
+      //Persist the updated cart in localStorage
+      localStorage.setItem(cartKey, JSON.stringify(newState));
+      //Return the new state
+      return newState;
+    },
+  },
 });
 
 export const { addToCart, removeFromCart } = cartSlice.actions;

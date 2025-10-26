@@ -35,3 +35,34 @@ export const QUERY_SINGLE_PRODUCT = gql`
     }
   }
 `;
+
+//Query to fetch a single user
+export const QUERY_SINGLE_USER = gql`
+  query User($username: String!) {
+    user(username: $username) {
+      username
+      address {
+        postCode
+        state
+        street
+        suburb
+      }
+      firstName
+      lastName
+      phone
+      email
+      orders {
+        _id
+        createdAt
+        userId
+        totalPrice
+        deliveryAddress {
+          postCode
+          state
+          street
+          suburb
+        }
+      }
+    }
+  }
+`;

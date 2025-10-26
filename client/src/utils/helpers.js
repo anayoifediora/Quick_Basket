@@ -16,3 +16,16 @@ export const ratingConverter = (rating) => {
     }
 };
 
+export const priceFormatter = (number) => {
+
+  let string = String(number);
+  if (string.length === 7) {
+    let end = string.slice(1);
+    let start = string.slice(0, 1);
+
+  return (`${start},${end}`)
+  }
+  
+  return string;
+      
+}

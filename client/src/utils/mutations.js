@@ -79,3 +79,27 @@ export const ADD_REVIEW = gql`
     }
   }
 `;
+//Mutation to create a new order
+export const CREATE_ORDER = gql`
+  mutation Mutation(
+    $userId: ID!
+    $products: [ProductInput]!
+    $totalPrice: Float!
+    $deliveryAddress: AddressInput!
+  ) {
+    createOrder(
+      userId: $userId
+      products: $products
+      totalPrice: $totalPrice
+      deliveryAddress: $deliveryAddress
+    ) {
+      _id
+      createdAt
+      products {
+        productName
+      }
+      totalPrice
+      userId
+    }
+  }
+`;

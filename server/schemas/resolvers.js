@@ -14,6 +14,12 @@ const resolvers = {
         populate: "products",
       });
     },
+    user: async (parent, { username }) => {
+      return User.findOne({ username }).populate({ 
+        path: "orders",
+        populate: "products"
+      });
+    },
     //List all products
     products: async () => {
       return await Product.find().populate("reviews");

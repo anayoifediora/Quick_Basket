@@ -3,11 +3,15 @@ import { Link } from "react-router-dom";
 import Auth from "../utils/auth";
 
 const Navbar = () => {
+
+
   const logout = (event) => {
     event.preventDefault();
     Auth.logout();
     window.location.assign("/");
   };
+  
+  
   return (
     <div className="custom-header container-fluid">
       <Link className="title-section" to="/">
@@ -18,7 +22,7 @@ const Navbar = () => {
       <nav className="navbar navbar-expand-lg">
         <div className="custom-navbar">
           <button
-            class="navbar-toggler"
+            className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent"
@@ -26,10 +30,10 @@ const Navbar = () => {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span class="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon"></span>
           </button>
           <div
-            class="collapse navbar-collapse ms-5"
+            className="collapse navbar-collapse"
             id="navbarSupportedContent"
           >
             <ul className="custom-nav-menu nav nav-pills">
@@ -50,12 +54,12 @@ const Navbar = () => {
                 </Link>
                 <ul className="dropdown-menu">
                   <li>
-                    <Link className="dropdown-item fs-6 " to="/fragrances">
+                    <Link className="dropdown-item fs-6 text-primary-emphasis " to="/fragrances">
                       Fragrances
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item fs-6 " to="/fragrances">
+                    <Link className="dropdown-item fs-6 text-primary-emphasis" to="/fragrances">
                       Phones
                     </Link>
                   </li>

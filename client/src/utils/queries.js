@@ -12,3 +12,57 @@ export const QUERY_ALL_PRODUCTS = gql`
     }
   }
 `;
+
+//Query to fetch a single product
+export const QUERY_SINGLE_PRODUCT = gql`
+  query Query($productId: ID!) {
+    product(productId: $productId) {
+      reviews {
+        _id
+        createdAt
+        rating
+        reviewAuthor
+        reviewText
+      }
+      productName
+      images
+      price
+      description
+      averageRating
+      _id
+      stock
+      category
+    }
+  }
+`;
+
+//Query to fetch a single user
+export const QUERY_SINGLE_USER = gql`
+  query User($username: String!) {
+    user(username: $username) {
+      username
+      address {
+        postCode
+        state
+        street
+        suburb
+      }
+      firstName
+      lastName
+      phone
+      email
+      orders {
+        _id
+        createdAt
+        userId
+        totalPrice
+        deliveryAddress {
+          postCode
+          state
+          street
+          suburb
+        }
+      }
+    }
+  }
+`;

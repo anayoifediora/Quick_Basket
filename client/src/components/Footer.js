@@ -3,7 +3,7 @@ import React from 'react';
 const Footer = () => {
     
     return (
-        <footer class="custom-footer">
+        <footer className="custom-footer">
             <div>
                 <a href="https://www.instagram.com/kifediora/" target="_blank" rel="noreferrer" ><i className = "custom-footer-icons bi bi-instagram"></i></a>
                 <a href="https://linkedin.com/in/kanayochi-ifediora-43422b20a" target="_blank" rel="noreferrer"><i className = "custom-footer-icons bi bi-linkedin"></i></a>

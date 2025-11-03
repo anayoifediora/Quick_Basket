@@ -19,7 +19,7 @@ const ProfileDisplay = ({ cart }) => {
       <h2>Logo</h2>
       
       <input className="custom-search-bar" placeholder="Search Products" />
-      <i className="cart-icon bi bi-basket2-fill">{Auth.loggedIn() ? (<Link to="/cart" style={{textDecoration: "none"}}><span className="cart-length">{cart?.length}</span></Link>) : (<span></span>)}</i>
+      <i className="cart-icon bi bi-basket2-fill">{Auth.loggedIn() ? (<Link to="/cart" style={{textDecoration: "none"}}><span className={cart.length === 0 ? "cart-length d-none" : "cart-length"}>{cart?.length}</span></Link>) : (<span></span>)}</i>
       <div className="dropdown m-2">
         <i
           className="m-2 bi bi-person dropdown-toggle"

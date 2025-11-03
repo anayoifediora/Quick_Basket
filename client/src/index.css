@@ -1,5 +1,5 @@
 :root {
-  --theme: #00ffcc;
+  --theme: #8c54e5;
   --secondary-color: rgb(245, 230, 200);
   --background-color: #faf7f7;
   --banner-background: rgb(242, 166, 60);
@@ -31,28 +31,27 @@ body {
 }
 .banner {
   padding: 20px;
-  margin-top: 220px;
-  height: 80vh;
-  width: 75%;
+  margin-top: 70px;
+  height: 100vh;
+  width: 100%;
   background-image: url("../../server/Assets/freestocks-_3Q3tsJ01nc-unsplash.jpg");
   background-size: cover;
-  opacity: 0.9;
   background-position: center;
   background-repeat: no-repeat;
-  border-radius: 10px;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
-  z-index: -1;
+  /* z-index: -1; */
 }
 
 .banner-content h1 {
-  color: rgb(11, 11, 95);
-  font-size: 80px;
+  color: white;
+  font-size: 120px;
   font-family: "Manrope", sans-serif;
   font-weight: 900;
   text-align: center;
+  margin-top: 250px;
 }
 .banner-content h3 {
-  color: var(--theme);
+  color: white;
   font-size: 3rem;
   font-weight: 600;
   font-style: italic;
@@ -62,7 +61,8 @@ body {
 }
 
 .profile-display {
-  background-color: rgb(50, 48, 48);
+  /* background-color: rgb(50, 48, 48); */
+  background-color: var(--theme);
   color: white;
   padding: 20px;
   display: flex;
@@ -152,9 +152,9 @@ body {
   transition: all 0.4s ease-in-out;
 }
 .custom-nav-signup-btn {
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 15px;
-  color: black;
+  color: white;
   font-weight: 500;
   font-size: 1rem;
   text-decoration: none;
@@ -164,8 +164,8 @@ body {
 }
 .custom-nav-signup-btn:hover {
   background-color: white;
-  border: 1px solid black;
-  color: black;
+  border: 2px solid var(--theme);
+  color: var(--theme);
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
@@ -178,18 +178,19 @@ body {
 button {
   background-color: var(--theme);
   border-radius: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.9);
   padding: 9px;
-  color: black;
+  color: white;
   font-weight: 400;
 }
 button:hover {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease-in-out;
   cursor: pointer;
-  background-color: var(--background-color);
-  color: black;
-  border: 1px solid black;
+  background-color: white;
+  color:var(--theme);
+  font-weight: bold;
+  border: 2px solid var(--theme);
 }
 .products-section {
   display: flex;
@@ -335,6 +336,7 @@ i:hover {
 .product-name {
   font-size: 1.2rem;
   font-weight: 500;
+  height: 45px;
 }
 .product-details {
   margin: 15px;
@@ -352,6 +354,27 @@ i:hover {
   margin-top: 220px;
   width: 95%;
   
+}
+.alert {
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  width: 35%;
+  height:150px;
+  margin: 20px auto;
+  text-align: center;
+  position: fixed;
+  top: 250px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+.alert :nth-child(3):hover {
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  color: red;
 }
 .image-gallery-section {
   display: flex;
@@ -493,6 +516,7 @@ i:hover {
 .all-cart-items {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   padding: 20px;

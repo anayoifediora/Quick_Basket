@@ -13,7 +13,7 @@ import ProfileDisplay from "../components/ProfileDisplay";
 //Helper functions
 import Auth from "../utils/auth";
 import { priceFormatter } from "../utils/helpers";
-import { removeFromCart } from "../State/cartSlice";
+import { removeFromCart, clearCart } from "../State/cartSlice";
 
 const CartPage = ({ cart, dispatch }) => {
   console.log(cart);
@@ -25,8 +25,9 @@ const CartPage = ({ cart, dispatch }) => {
   });
 
   const user = data?.user;
-  
+  console.log(user);
 
+  //Form State
   const [formState, setFormState] = useState({
     phone: "",
     address: {
@@ -36,12 +37,15 @@ const CartPage = ({ cart, dispatch }) => {
       postCode: "",
     },
   });
-
+  //Personal details notification
+  const [personalDetailsError, setPersonalDetailsError] = useState(" ");
+  //Successful order creation notification
+  const [successMessage, setSuccessMessage] = useState("");
   // Once user data is loaded, update formState
   useEffect(() => {
     if (user) {
       setFormState({
-        phone: "",
+        phone: user.phone,
         address: {
           street: user.address?.street,
           suburb: user.address?.suburb,
@@ -89,24 +93,31 @@ const CartPage = ({ cart, dispatch }) => {
   //Function that handles order creation
   const handleOrderCreation = async (event) => {
     event.preventDefault();
+    const { street, suburb, state, postCode } = formState.address;
+
+    // Check for blank address fields
+    if (!street || !suburb || !state || !postCode || !formState.phone) {
+      setPersonalDetailsError("errorMessage");
+      return;
+    }
 
     try {
+      const userAddress = { street, suburb, state, postCode };
       //Execute the createOrder mutation
-      const { data } = await createOrder({
+      const { data, error } = await createOrder({
         variables: {
           userId: Auth.getProfile().data._id,
           products: cartItems,
           totalPrice: grandTotalPrice,
-          deliveryAddress: {
-      postCode: "10001",
-      state: "NY",
-      street: "123 Main St",
-      suburb: "New York",
-    },
+          deliveryAddress: userAddress,
         },
       });
-    } catch (e) {
-      console.error(e);
+      setSuccessMessage("successMessage");
+     
+      //Clear cart in Redux and localStorage
+      dispatch(clearCart());
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -125,9 +136,10 @@ const CartPage = ({ cart, dispatch }) => {
                 <p>Start adding some products to your cart!</p>
               </div>
             ) : (
+                
               cart.map((product, index) => (
                 <div className="cart-item" key={index}>
-                  {/* <p className="ms-4">{index + 1}</p> */}
+    
                   <img src={product.images[0]} alt="" />
                   <div>
                     <p className="me-3 fs-6">{product.productName}</p>
@@ -146,7 +158,11 @@ const CartPage = ({ cart, dispatch }) => {
               ))
             )}
           </div>
-          <div className="order-summary">
+          <div
+            className={
+              cart.length === 0 ? `order-summary d-none` : "order-summary"
+            }
+          >
             <h5>Order Summary</h5>
             <div>
               <p>
@@ -196,6 +212,39 @@ const CartPage = ({ cart, dispatch }) => {
       >
         <div className="modal-dialog modal-lg">
           <div className="modal-content">
+            {personalDetailsError === "errorMessage" && (
+              <div
+                className="alert bg-danger-subtle border-danger-subtle border-5 d-flex justify-content-between align-items-center"
+                role="alert"
+              >
+                <i class="bi bi-dash-circle fs-1 text-danger"></i>
+                <p className="mt-3 fs-5 text-danger">
+                  Please complete personal details!
+                </p>
+                <i
+                  class="bi bi-x-lg fs-2 text-danger"
+                  onClick={() => setPersonalDetailsError("")}
+                ></i>
+              </div>
+            )}
+            {successMessage === "successMessage" && (
+              <div
+                className="alert bg-success-subtle border-success-subtle border-5 d-flex justify-content-between align-items-center"
+                role="alert"
+              >
+                <i class="bi bi-check-circle fs-1 text-success"></i>
+                <p className="mt-3 fs-5 text-success">
+                  Order created successfully. Thanks for your patronage!
+                </p>
+                <i
+                  class="bi bi-x-lg fs-2 text-success"
+                  onClick={() => { 
+                    setSuccessMessage("");
+                    setInterval(() => window.location.reload(), 1000);
+                }}
+                ></i>
+              </div>
+            )}
             <div className="modal-header">
               <h1 className="modal-title fs-5" id="checkoutModalLabel">
                 Checkout Form

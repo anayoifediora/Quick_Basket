@@ -20,6 +20,7 @@ import { ratingConverter } from "../utils/helpers";
 const ProductPage = ({ cart, dispatch }) => {
   let [imageIndex, setImageIndex] = useState(0);
   const [activeTab, setActiveTab] = useState("description");
+  const [loggedInStatus, setLoggedInStatus] = useState(true);
 
   //Functions to handle image gallery index increase/decrease
   const handleImageIndexIncrease = () => {
@@ -49,7 +50,7 @@ const ProductPage = ({ cart, dispatch }) => {
 
   const handleAddToCart = () => {
     if (!Auth.loggedIn()) {
-      alert(`kindly log in to proceed with purchase!`);
+      setLoggedInStatus(false)
     } else {
       
       dispatch(addToCart(product));
@@ -89,19 +90,23 @@ const ProductPage = ({ cart, dispatch }) => {
               <section className="product-info">
                 <p>{product.productName}</p>
                 <p className='fs-1'>${priceFormatter(product.price)}</p>
-                <p>Rating: {product.averageRating}<span className="m-1"><i style={{color: 'gold'}}class="bi bi-star-fill"></i></span></p>
+                <p className={!product.averageRating ? "text-muted fst-italic" : ""}>Rating: {!product.averageRating ? "No ratings yet" : product.averageRating}<span className="m-1"><i style={!product.averageRating ? {color: "white"} : {color: 'gold'}}class="bi bi-star-fill"></i></span></p>
                 <p>Stock Left: {product.stock}</p>
                 <p>Reviews: {product.reviews.length}
 
                   {/* <!-- Button that triggers review modal --> */}
+                  {!Auth.loggedIn() ? (
+                    <span></span>
+                  ) : (
                   <span
                     type="button"
                     className="custom-review-btn btn"
                     data-bs-toggle="modal"
                     data-bs-target="#reviewModal"
                   >
-                    Write a review
+                    Click to add review.
                   </span>
+                  )}
                 </p>
 
                 
@@ -145,11 +150,20 @@ const ProductPage = ({ cart, dispatch }) => {
                     
                     </div>
                   ))
-                : activeTab === "reviews" && <p>No reviews yet.</p>}
+                : activeTab === "reviews" && <p className="m-3 fs-5">No reviews yet.</p>}
             </section>
           </div>
         )}
         <ReviewForm productId = {productId}/>
+
+        {!loggedInStatus && (
+          <div className="alert bg-info-subtle border-info-subtle border-5 d-flex justify-content-between align-items-center" role="alert">
+            <i class="bi bi-exclamation-triangle fs-1"></i>
+            <p className="mt-3 fs-5 text-info">Kindly log in to proceed with purchase!</p>
+            <i class="bi bi-x-lg fs-2" onClick={() => setLoggedInStatus(true)}></i>
+      
+          </div>
+        )}
       </div>
       <Footer />
     </div>

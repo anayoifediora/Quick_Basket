@@ -23,7 +23,7 @@ const reviewSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        get: (date) => { return date.toDateString()}
+        get: (date) => { return date.toLocaleString()}
     },
 
 },

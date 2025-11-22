@@ -24,6 +24,9 @@ const resolvers = {
     products: async () => {
       return await Product.find().populate("reviews");
     },
+    resultProducts: async (parent, { keyWord }) => {
+      return await Product.find({ productName: { $regex: keyWord, $options:  "i"}})
+    },
     //List a product by Id
     product: async (parent, { productId }) => {
       return await Product.findOne({ _id: productId }).populate('reviews');

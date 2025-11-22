@@ -1,11 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { useSelector } from "react-redux";
+
 
 import ProfileDisplay from "../components/ProfileDisplay";
+import SearchResult from "./SearchResult";
 
-const Home = ({ cart }) => {
+const Home = () => {
   let photoArray = [
     "https://res.cloudinary.com/ddn6rojif/image/upload/v1757724334/Giorgio_Armani_Acqua_di_gio_EDP_1_vr2wne.jpg",
     "https://res.cloudinary.com/ddn6rojif/image/upload/v1757723665/Sony_WH-1000XM5_1_tdgpqy.webp",
@@ -13,13 +16,18 @@ const Home = ({ cart }) => {
   ];
   
   
-
+    const searchTerm = useSelector((state) => state.searchTerm);
+  
   return (
     <div className="d-flex flex-column align-items-center">
       <div className="custom-main-header">
-        <ProfileDisplay cart={cart} />
+        <ProfileDisplay/>
         <Navbar />
       </div>
+      { searchTerm &&        
+          <SearchResult/>
+        
+      }
       <section className="banner">
         <div className="banner-content">
           <h1>QuickBasket</h1>
@@ -46,6 +54,8 @@ const Home = ({ cart }) => {
           alt="products-banner"
         />
       </section>
+      
+      
       <Footer />
     </div>
   );

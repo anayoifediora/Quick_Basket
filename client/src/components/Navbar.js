@@ -15,7 +15,7 @@ const Navbar = () => {
   return (
     <div className="custom-header container-fluid">
       <Link className="title-section" to="/">
-        <div className="logo-image"></div>
+        {/* <div className="logo-image"></div> */}
         <h4 className="title m-3">QuickBasket</h4>
       </Link>
       
@@ -78,8 +78,13 @@ const Navbar = () => {
       ) : (
       <ul className="custom-nav-menu nav nav-pills">
         <li className="custom-nav-item nav-item">
+          <Link className="custom-nav-signup-btn" to="/login">
+            Login
+          </Link>
+        </li>
+        <li className="custom-nav-item nav-item">
           <Link className="custom-nav-signup-btn" to="/signup">
-            Sign Up
+            SignUp
           </Link>
         </li>
       </ul>

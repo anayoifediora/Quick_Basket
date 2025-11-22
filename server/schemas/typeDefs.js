@@ -85,6 +85,7 @@ const typeDefs = `
         user(username: String!): User
         users: [User]
         products: [Product]
+        resultProducts(keyWord: String): [Product]
         product(productId: ID!): Product
         categories: [Category],
         orders: [Order]!,

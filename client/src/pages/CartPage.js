@@ -4,19 +4,24 @@ import { Link } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_SINGLE_USER } from "../utils/queries";
 import { CREATE_ORDER } from "../utils/mutations";
+import { useSelector, useDispatch } from "react-redux";
 
 //Components
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ProfileDisplay from "../components/ProfileDisplay";
+import SearchResult from "./SearchResult";
 
 //Helper functions
 import Auth from "../utils/auth";
 import { priceFormatter } from "../utils/helpers";
 import { removeFromCart, clearCart } from "../State/cartSlice";
 
-const CartPage = ({ cart, dispatch }) => {
-  console.log(cart);
+const CartPage = () => {
+    const cart = useSelector(state => state.cart);
+    const dispatch = useDispatch();
+    const searchTerm = useSelector((state) => state.searchTerm);
+    
 
   const { data } = useQuery(QUERY_SINGLE_USER, {
     variables: {
@@ -124,9 +129,13 @@ const CartPage = ({ cart, dispatch }) => {
   return (
     <div className="d-flex flex-column align-items-center">
       <div className="custom-main-header">
-        <ProfileDisplay cart={cart} />
+        <ProfileDisplay />
         <Navbar />
       </div>
+      { searchTerm &&        
+          <SearchResult/>
+        
+      }
       {Auth.loggedIn() && (
         <div className="cart-page">
           <div className="all-cart-items">
@@ -357,6 +366,7 @@ const CartPage = ({ cart, dispatch }) => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

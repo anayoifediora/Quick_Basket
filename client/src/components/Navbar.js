@@ -15,7 +15,7 @@ const Navbar = () => {
   return (
     <div className="custom-header container-fluid">
       <Link className="title-section" to="/">
-        {/* <div className="logo-image"></div> */}
+        <div className="logo-image"></div>
         <h4 className="title m-3">QuickBasket</h4>
       </Link>
       
@@ -43,7 +43,7 @@ const Navbar = () => {
               <li className="custom-nav-item nav-item">
                 <Link className="custom-nav-link nav-link" to="/products">Products</Link>
               </li>
-              <li className="custom-nav-item nav-item dropdown">
+              {/* <li className="custom-nav-item nav-item dropdown">
                 <Link
                   className="custom-nav-link nav-link dropdown-toggle"
                   data-bs-toggle="dropdown"
@@ -64,9 +64,9 @@ const Navbar = () => {
                     </Link>
                   </li>
                 </ul>
-              </li>
+              </li> */}
               <li className="custom-nav-item nav-item">
-                <Link className="custom-nav-link nav-link">About Us</Link>
+                <Link className="custom-nav-link nav-link" to="/about_us">About Us</Link>
               </li>
 
             </ul>
@@ -74,7 +74,7 @@ const Navbar = () => {
         </div>
       </nav>
       {Auth.loggedIn() ? (
-        <h5 className="m-3">Welcome {Auth.getProfile().data.username}!</h5>
+        <h5 className="custom-username m-3">Welcome {Auth.getProfile().data.username}!</h5>
       ) : (
       <ul className="custom-nav-menu nav nav-pills">
         <li className="custom-nav-item nav-item">

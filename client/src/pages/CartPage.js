@@ -1,6 +1,5 @@
 //Libraries
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_SINGLE_USER } from "../utils/queries";
 import { CREATE_ORDER } from "../utils/mutations";
@@ -132,6 +131,7 @@ const CartPage = () => {
         <ProfileDisplay />
         <Navbar />
       </div>
+      <h2 className="mt-3">Cart</h2>
       { searchTerm &&        
           <SearchResult/>
         
@@ -151,7 +151,7 @@ const CartPage = () => {
     
                   <img src={product.images[0]} alt="" />
                   <div>
-                    <p className="me-3 fs-6">{product.productName}</p>
+                    <p className="">{product.productName}</p>
                     <p>Quantity: 1</p>
                   </div>
                   <div className="align-items-end">
@@ -159,7 +159,7 @@ const CartPage = () => {
                       onClick={() => dispatch(removeFromCart(product))}
                       className="bi bi-trash text-danger"
                     ></i>
-                    <p className="fs-5">
+                    <p className="">
                       ${priceFormatter(Number(product.price))}
                     </p>
                   </div>
@@ -193,8 +193,8 @@ const CartPage = () => {
               </p>
             </div>
             <div>
-              <h5 className="fw-bold">Total</h5>
-              <h5 className="fw-bold">
+              <p className="fw-bold">Total</p>
+              <p className="fw-bold">
                 $
                 {priceFormatter(
                   Math.round(
@@ -203,7 +203,7 @@ const CartPage = () => {
                       .reduce((acc, val) => acc + val, 0) * 100
                   ) / 100
                 )}
-              </h5>
+              </p>
             </div>
             <button data-bs-toggle="modal" data-bs-target="#checkoutModal">
               Checkout
@@ -265,7 +265,7 @@ const CartPage = () => {
                 aria-label="Close"
               ></button>
             </div>
-            <div className="modal-body">
+            <div className="modal-body" id="checkout-modal">
               <div className="personal-details m-3">
                 <h3>Personal Details</h3>
                 <div className="mb-3">

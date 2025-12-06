@@ -44,6 +44,7 @@ const Products = () => {
         <ProfileDisplay/>
         <Navbar />
       </div>
+      <h2 className="m-5">{products.length} Products</h2>
       { searchTerm &&        
           <SearchResult/>
         
@@ -58,6 +59,7 @@ const Products = () => {
                     
                       <div className="product-card mt-5" key={index}>
                           <Link to={`/products/${product._id}`}><img className="product-image"src={product.images[0]} alt=""/></Link>
+                        
                           <div className="product-details">
                               <p className="product-price">${priceFormatter(product.price)}</p>
                               <p className="product-name">{product.productName}</p>

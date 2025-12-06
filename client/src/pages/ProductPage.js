@@ -100,9 +100,9 @@ const ProductPage = () => {
                 </div>
               <section className="product-info">
                 <p>{product.productName}</p>
-                <p className='fs-1'>${priceFormatter(product.price)}</p>
+                <p className='fs-1 fw-bold' style={{color: "var(--theme)"}}>${priceFormatter(product.price)}</p>
                 <p className={!product.averageRating ? "text-muted fst-italic" : ""}>Rating: {!product.averageRating ? "No ratings yet" : product.averageRating}<span className="m-1"><i style={!product.averageRating ? {color: "white"} : {color: 'gold'}}class="bi bi-star-fill"></i></span></p>
-                <p>Stock Left: {product.stock}</p>
+                <p>In stock: {product.stock}</p>
                 <p>Reviews: {product.reviews.length}
 
                   {/* <!-- Button that triggers review modal --> */}
@@ -138,7 +138,7 @@ const ProductPage = () => {
               >
                 Product Description
               </h3>
-              {activeTab === "description" && <p className="m-3">{product.description}</p>}
+              {activeTab === "description" && <p className=" custom-product-description">{product.description}</p>}
               
               <h3
                 style={{ cursor: "pointer" }}

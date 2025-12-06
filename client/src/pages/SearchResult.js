@@ -44,7 +44,7 @@ const SearchResult = () => {
                 <div className="product-details">
                   <p className="product-price">${product.price.toFixed(2)}</p>
                   <p className="product-name">{product.productName}</p>
-                  {/* <p className="product-rating text-body-secondary">Rating: {!product.averageRating ? "No ratings yet" : product.averageRating} <i style={!product.averageRating ? {color: "white"} : {color: 'gold'}}class="bi bi-star-fill"></i></p> */}
+                  <p className="product-rating text-body-secondary">Rating: {!product.averageRating ? "No ratings yet" : product.averageRating} <i style={!product.averageRating ? {color: "white"} : {color: 'gold'}}class="bi bi-star-fill"></i></p>
                 </div>
                 {/* <button className="custom-addToCart-btn align-self-center"> Add to cart</button> */}
               </div>

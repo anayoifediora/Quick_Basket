@@ -2,7 +2,8 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
-import { addToCart, removeFromCart } from "../State/cartSlice";
+import { addToCart } from "../State/cartSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 //Components
 import Navbar from "../components/Navbar";
@@ -10,6 +11,8 @@ import Footer from "../components/Footer";
 import ProfileDisplay from "../components/ProfileDisplay";
 import Auth from "../utils/auth";
 import ReviewForm from "../components/ReviewForm";
+import SearchResult from "./SearchResult";
+
 
 //Utility functions
 import { priceFormatter } from "../utils/helpers";
@@ -17,11 +20,15 @@ import { QUERY_SINGLE_PRODUCT } from "../utils/queries";
 
 import { ratingConverter } from "../utils/helpers";
 
-const ProductPage = ({ cart, dispatch }) => {
+const ProductPage = () => {
   let [imageIndex, setImageIndex] = useState(0);
   const [activeTab, setActiveTab] = useState("description");
   const [loggedInStatus, setLoggedInStatus] = useState(true);
 
+    // const cart = useSelector(state => state.cart);
+    const searchTerm = useSelector((state) => state.searchTerm);
+    const dispatch = useDispatch();
+    
   //Functions to handle image gallery index increase/decrease
   const handleImageIndexIncrease = () => {
     if (imageIndex >= 0 && imageIndex < 2) {
@@ -59,9 +66,13 @@ const ProductPage = ({ cart, dispatch }) => {
   return (
     <div className="d-flex flex-column align-items-center">
       <div className="custom-main-header">
-        <ProfileDisplay cart={cart} />
+        <ProfileDisplay />
         <Navbar />
       </div>
+      { searchTerm &&        
+          <SearchResult/>
+        
+      }
       <div className="custom-singleProduct-page">
         {loading ? (
           <p>Loading....</p>
@@ -89,9 +100,9 @@ const ProductPage = ({ cart, dispatch }) => {
                 </div>
               <section className="product-info">
                 <p>{product.productName}</p>
-                <p className='fs-1'>${priceFormatter(product.price)}</p>
+                <p className='fs-1 fw-bold' style={{color: "var(--theme)"}}>${priceFormatter(product.price)}</p>
                 <p className={!product.averageRating ? "text-muted fst-italic" : ""}>Rating: {!product.averageRating ? "No ratings yet" : product.averageRating}<span className="m-1"><i style={!product.averageRating ? {color: "white"} : {color: 'gold'}}class="bi bi-star-fill"></i></span></p>
-                <p>Stock Left: {product.stock}</p>
+                <p>In stock: {product.stock}</p>
                 <p>Reviews: {product.reviews.length}
 
                   {/* <!-- Button that triggers review modal --> */}
@@ -127,7 +138,7 @@ const ProductPage = ({ cart, dispatch }) => {
               >
                 Product Description
               </h3>
-              {activeTab === "description" && <p className="m-3">{product.description}</p>}
+              {activeTab === "description" && <p className=" custom-product-description">{product.description}</p>}
               
               <h3
                 style={{ cursor: "pointer" }}
@@ -159,7 +170,7 @@ const ProductPage = ({ cart, dispatch }) => {
         {!loggedInStatus && (
           <div className="alert bg-info-subtle border-info-subtle border-5 d-flex justify-content-between align-items-center" role="alert">
             <i class="bi bi-exclamation-triangle fs-1"></i>
-            <p className="mt-3 fs-5 text-info">Kindly log in to proceed with purchase!</p>
+            <p className="mt-3 fs-5 text-info">Log in or sign up to proceed with purchase!</p>
             <i class="bi bi-x-lg fs-2" onClick={() => setLoggedInStatus(true)}></i>
       
           </div>

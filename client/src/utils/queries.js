@@ -62,7 +62,34 @@ export const QUERY_SINGLE_USER = gql`
           street
           suburb
         }
+        products {
+          productName
+          price
+          images
+        }
       }
     }
   }
 `;
+
+//Query to generate results from a product search
+export const QUERY_SEARCH_RESULTS = gql`
+
+  query Query($keyWord: String) {
+  resultProducts(keyWord: $keyWord) {
+    productName
+    description
+    images
+    price
+    averageRating
+    _id
+    reviews {
+      _id
+      createdAt
+      rating
+      reviewAuthor
+      reviewText
+    }
+  }
+}
+`

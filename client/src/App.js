@@ -16,6 +16,9 @@ import SignUp from "../src/pages/SignUp";
 import Products from '../src/pages/Products';
 import ProductPage from "./pages/ProductPage";
 import CartPage from "./pages/CartPage";
+import Dashboard from "./pages/Dashboard";
+import SearchResult from "./pages/SearchResult";
+import AboutUs from "./pages/AboutUs";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -38,18 +41,20 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-function App({ state, dispatch }) {
+function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
         <Routes>
-          <Route path="/" element={<Home cart={state.cart}/>} />
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/products" element={<Products cart={state.cart} dispatch={dispatch}/>} />
-          <Route path="/products/:productId" element={<ProductPage cart={state.cart} dispatch={dispatch}/>} />
-          <Route path="/cart" element={<CartPage cart={state.cart} dispatch={dispatch}/>}/>
-
+          <Route path="/products" element={<Products  />} />
+          <Route path="/products/:productId" element={<ProductPage  />} />
+          <Route path="/cart" element={<CartPage  />}/>
+          <Route path="/dashboard" element={<Dashboard  />} />
+          <Route path="/search/" element={<SearchResult />} />
+          <Route path="/about_us" element={<AboutUs/>}/>
         </Routes>
       </Router>
     </ApolloProvider>

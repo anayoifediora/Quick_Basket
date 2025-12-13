@@ -30,14 +30,14 @@ const Products = () => {
   const { loading, data } = useQuery(QUERY_ALL_PRODUCTS);
   const products = data?.products || [];
  
-  // const handleAddToCart = () => {
-  //     if (!Auth.loggedIn()) {
-  //       setLoggedInStatus(false)
-  //     } else {
+  const handleAddToCart = (item) => {
+      if (!Auth.loggedIn()) {
+        setLoggedInStatus(false)
+      } else {
         
-  //       dispatch(addToCart(product));
-  //     }
-  //   };
+        dispatch(addToCart(item));
+      }
+    };
   return (
     <div className="d-flex flex-column align-items-center">
       <div className="custom-main-header">
@@ -67,7 +67,7 @@ const Products = () => {
       
                           </div>
                           
-                          <button onClick={() => dispatch(addToCart(product))} className="custom-addToCart-btn align-self-center"> Add to cart</button>
+                          <button onClick={() => handleAddToCart(product)} className="custom-addToCart-btn align-self-center"> Add to cart</button>
 
                       </div>
                     
@@ -78,7 +78,14 @@ const Products = () => {
 
         }
       </div>
-
+        {!loggedInStatus && (
+          <div className="alert bg-info-subtle border-info-subtle border-5 d-flex justify-content-between align-items-center" role="alert">
+            <i class="bi bi-exclamation-triangle fs-1"></i>
+            <p className="mt-3 fs-5 text-info">Log in or sign up to proceed with purchase!</p>
+            <i class="bi bi-x-lg fs-2" onClick={() => setLoggedInStatus(true)}></i>
+      
+          </div>
+        )}
       <Footer />
     </div>
   );

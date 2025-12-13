@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   ApolloClient,
   InMemoryCache,
@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import { setContext } from "@apollo/client/link/context";
 
-import "./App.css";
+// import "./App.css";
 import Home from "../src/pages/Home";
 import Login from "../src/pages/Login";
 import SignUp from "../src/pages/SignUp";
@@ -19,6 +19,8 @@ import CartPage from "./pages/CartPage";
 import Dashboard from "./pages/Dashboard";
 import SearchResult from "./pages/SearchResult";
 import AboutUs from "./pages/AboutUs";
+import SessionExpiredModal  from "./components/SessionExpiredModal";
+import Auth from "./utils/auth";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -42,8 +44,23 @@ const client = new ApolloClient({
 });
 
 function App() {
+  // const [sessionExpired, setSessionExpired] = useState(false);
+
+  // useEffect(() => {
+  //   const token = Auth.getToken();
+  //   if (token && Auth.isTokenExpired(token)) {
+  //     setSessionExpired(true);
+  //   }
+  // }, []);
+
+  // const handleClose = () => {
+  //   setSessionExpired(false);
+  //   window.location.href = "/login";  
+  // };
+
   return (
     <ApolloProvider client={client}>
+      {/* <SessionExpiredModal show={sessionExpired} onClose={handleClose} /> */}
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />

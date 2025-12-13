@@ -27,7 +27,7 @@ const SearchResult = () => {
       ) : (
         <div className="search-result-page">
           <div style={{gridColumn: "span 3", textAlign: "center"}} className="d-flex justify-content-between">
-            <h4>Displaying {result.length} results...</h4>
+            <h4 style={{fontSize: 'clamp(1rem, 2.3vw, 1.6rem)'}}>Displaying {result.length} results...</h4>
             <i onClick={() => dispatch(clearSearchTerm())} className="bi bi-x-square-fill fs-2"></i>
           </div>
           
@@ -46,7 +46,7 @@ const SearchResult = () => {
                   <p className="product-name">{product.productName}</p>
                   <p className="product-rating text-body-secondary">Rating: {!product.averageRating ? "No ratings yet" : product.averageRating} <i style={!product.averageRating ? {color: "white"} : {color: 'gold'}}class="bi bi-star-fill"></i></p>
                 </div>
-                {/* <button className="custom-addToCart-btn align-self-center"> Add to cart</button> */}
+            
               </div>
             ))
           ) : (

@@ -1,8 +1,8 @@
 //Libraries
 import React from "react";
 import { useQuery } from "@apollo/client";
-import { QUERY_SINGLE_USER, QUERY_ALL_PRODUCTS } from "../utils/queries";
-import { useSelector, useDispatch } from "react-redux";
+import { QUERY_SINGLE_USER } from "../utils/queries";
+import { useSelector } from "react-redux";
 
 //Components
 import Navbar from "../components/Navbar";
@@ -20,7 +20,7 @@ const Dashboard = () => {
     const searchTerm = useSelector((state) => state.searchTerm);
     
     // const dispatch = useDispatch();
-  const { data, loading, error} = useQuery(QUERY_SINGLE_USER, {
+  const { data, loading} = useQuery(QUERY_SINGLE_USER, {
     variables: {
       username: Auth.getProfile().data.username,
     },

@@ -74,7 +74,7 @@ const CartPage = () => {
   }));
   console.log(cartItems);
   //Apollo mutation hook for creating an order
-  const [createOrder, { result, loading, error }] = useMutation(CREATE_ORDER);
+  const [createOrder, { result, loading }] = useMutation(CREATE_ORDER);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

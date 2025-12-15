@@ -45,6 +45,9 @@ const CartPage = () => {
   const [personalDetailsError, setPersonalDetailsError] = useState(" ");
   //Successful order creation notification
   const [successMessage, setSuccessMessage] = useState("");
+
+  const [lowStockMessage, setLowStockMessage] = useState("");
+  
   // Once user data is loaded, update formState
   useEffect(() => {
     if (user) {
@@ -121,7 +124,8 @@ const CartPage = () => {
       //Clear cart in Redux and localStorage
       dispatch(clearCart());
     } catch (error) {
-      console.error(error);
+      // console.log(error.message);
+      setLowStockMessage(error.message);
     }
   };
 
@@ -140,7 +144,7 @@ const CartPage = () => {
         <div className="cart-page">
           <div className="all-cart-items">
             {cart.length === 0 ? (
-              <div className="text-center text-body-tertiary mt-5">
+              <div className="text-center text-body-tertiary mt-5 mb-5">
                 <h4>Your cart is empty.</h4>
                 <p>Start adding some products to your cart!</p>
               </div>
@@ -254,6 +258,26 @@ const CartPage = () => {
                 ></i>
               </div>
             )}
+            {
+              lowStockMessage && (
+                <div
+                className="alert bg-danger-subtle border-danger-subtle border-5 d-flex justify-content-between align-items-center"
+                role="alert"
+              >
+                <i class="bi bi-exclamation-triangle fs-1 text-danger"></i>
+                <p className="mt-3 fs-5 text-danger">
+                  {lowStockMessage}
+                </p>
+                <i
+                  class="bi bi-x-lg fs-2 text-danger"
+                  onClick={() => { 
+                    setLowStockMessage("");
+                  
+                }}
+                ></i>
+              </div>
+              )
+            }
             <div className="modal-header">
               <h1 className="modal-title fs-5" id="checkoutModalLabel">
                 Checkout Form

@@ -35,16 +35,16 @@ const server = new ApolloServer({
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 //Upon deployment, serve the built React frontend
-// if (process.env.NODE_ENV === 'production') {
-//     //Server static files from the React app's build directory
-//     app.use(express.static(path.join(__dirname, '../client/build')));
+if (process.env.NODE_ENV === 'production') {
+    //Server static files from the React app's build directory
+    app.use(express.static(path.join(__dirname, '../client/build')));
        
-// }
+}
 // For any routes that aren’t caught by the server (e.g. /dashboard),
   // serve the React app's index.html file.
-// app.get ('*', (req, res) => {
-//     res.sendFile(path.join(__dirname, '../client/build/index.html'));   
-//     });
+app.get ('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/build/index.html'));   
+    });
 
 const startApolloServer = async () => {
     //Start Apollo Server

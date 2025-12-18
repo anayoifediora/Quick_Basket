@@ -26,11 +26,11 @@ const SearchResult = () => {
         <h3>Loading...</h3>
       ) : (
         <div className="search-result-page">
-          <div style={{gridColumn: "span 3", textAlign: "center"}} className="d-flex justify-content-between">
-            <h4 style={{fontSize: 'clamp(1rem, 2.3vw, 1.6rem)'}}>Displaying {result.length} results...</h4>
+          <div style={{gridColumn: "span 3", textAlign: "center", marginTop: '20px'}} className="d-flex justify-content-between">
+            <h3 style={{fontSize: 'clamp(1rem, 2.3vw, 1.7rem)'}}>Displaying {result.length} results...</h3>
             <i onClick={() => dispatch(clearSearchTerm())} className="bi bi-x-square-fill fs-2"></i>
           </div>
-          
+          <div className="search-results">
           {result.length ? (
             result.map((product, index) => (
               <div className="product-card m-3" key={index}>
@@ -57,6 +57,7 @@ const SearchResult = () => {
             </div>
             
           )}
+          </div>
         </div>
       )}
     </div>

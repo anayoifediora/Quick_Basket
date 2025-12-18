@@ -79,11 +79,14 @@ const Products = () => {
         }
       </div>
         {!loggedInStatus && (
-          <div className="alert bg-info-subtle border-info-subtle border-5 d-flex justify-content-between align-items-center" role="alert">
-            <i class="bi bi-exclamation-triangle fs-1"></i>
-            <p className="mt-3 fs-5 text-info">Log in or sign up to proceed with purchase!</p>
-            <i class="bi bi-x-lg fs-2" onClick={() => setLoggedInStatus(true)}></i>
-      
+          
+          <div className="alert p-0 pb-2">
+            <div style={{backgroundColor: "var(--theme)"}} className="d-flex align-items-center justify-items-start">
+              <i className="bi bi-exclamation-triangle fs-1 ms-2"></i>
+              <h3  className= "ms-2">Info</h3>
+            </div>
+            <p  className="mt-3">Login or signup to proceed with purchase</p>
+            <button className="mb-3 mt-3 p-2 w-25" onClick={() => setLoggedInStatus(true)}>Ok</button>
           </div>
         )}
       <Footer />

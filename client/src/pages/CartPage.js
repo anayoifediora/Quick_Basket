@@ -45,7 +45,7 @@ const CartPage = () => {
   const [personalDetailsError, setPersonalDetailsError] = useState(" ");
   //Successful order creation notification
   const [successMessage, setSuccessMessage] = useState("");
-
+  //Low stock notification.
   const [lowStockMessage, setLowStockMessage] = useState("");
   
   // Once user data is loaded, update formState

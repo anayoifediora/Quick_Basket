@@ -28,7 +28,7 @@ const Dashboard = () => {
 
   const userOrders = data?.user?.orders || [];
     
-    console.log(userOrders);
+    
 
   return (
     <div className="d-flex flex-column align-items-center">

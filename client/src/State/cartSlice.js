@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import Auth from '../utils/auth';
+import Auth from "../utils/auth";
 
 //Get the current username (or use "guest" if not logged in);
-const username = Auth.loggedIn() ? Auth.getProfile().data.username : 'guest';
+const username = Auth.loggedIn() ? Auth.getProfile().data.username : "guest";
 
 //Use the username to create a unique key
-const cartKey = `cart${username}`
+const cartKey = `cart${username}`;
 
 export const cartSlice = createSlice({
   name: "cart",
@@ -33,7 +33,7 @@ export const cartSlice = createSlice({
     clearCart: () => {
       localStorage.removeItem(cartKey);
       return [];
-    }
+    },
   },
 });
 

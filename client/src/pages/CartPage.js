@@ -17,10 +17,9 @@ import { priceFormatter } from "../utils/helpers";
 import { removeFromCart, clearCart } from "../State/cartSlice";
 
 const CartPage = () => {
-    const cart = useSelector(state => state.cart);
-    const dispatch = useDispatch();
-    const searchTerm = useSelector((state) => state.searchTerm);
-    
+  const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+  const searchTerm = useSelector((state) => state.searchTerm);
 
   const { data } = useQuery(QUERY_SINGLE_USER, {
     variables: {
@@ -29,7 +28,7 @@ const CartPage = () => {
   });
 
   const user = data?.user;
-  console.log(user);
+  
 
   //Form State
   const [formState, setFormState] = useState({
@@ -47,7 +46,7 @@ const CartPage = () => {
   const [successMessage, setSuccessMessage] = useState("");
   //Low stock notification.
   const [lowStockMessage, setLowStockMessage] = useState("");
-  
+
   // Once user data is loaded, update formState
   useEffect(() => {
     if (user) {
@@ -67,7 +66,7 @@ const CartPage = () => {
       cart.map((product) => product.price).reduce((acc, val) => acc + val, 0) *
         100
     ) / 100;
-  console.log(Auth.getProfile());
+  
 
   const cartItems = cart.map((item, index) => ({
     productId: item._id,
@@ -75,7 +74,7 @@ const CartPage = () => {
     price: item.price,
     quantity: 1,
   }));
-  console.log(cartItems);
+  
   //Apollo mutation hook for creating an order
   const [createOrder, { result, loading }] = useMutation(CREATE_ORDER);
 
@@ -120,11 +119,11 @@ const CartPage = () => {
         },
       });
       setSuccessMessage("successMessage");
-     
+
       //Clear cart in Redux and localStorage
       dispatch(clearCart());
     } catch (error) {
-      // console.log(error.message);
+      console.log(error.message);
       setLowStockMessage(error.message);
     }
   };
@@ -136,10 +135,7 @@ const CartPage = () => {
         <Navbar />
       </div>
       <h2 className="mt-3">Cart</h2>
-      { searchTerm &&        
-          <SearchResult/>
-        
-      }
+      {searchTerm && <SearchResult />}
       {Auth.loggedIn() && (
         <div className="cart-page">
           <div className="all-cart-items">
@@ -149,10 +145,8 @@ const CartPage = () => {
                 <p>Start adding some products to your cart!</p>
               </div>
             ) : (
-                
               cart.map((product, index) => (
                 <div className="cart-item" key={index}>
-    
                   <img src={product.images[0]} alt="" />
                   <div>
                     <p className="">{product.productName}</p>
@@ -163,9 +157,7 @@ const CartPage = () => {
                       onClick={() => dispatch(removeFromCart(product))}
                       className="bi bi-trash text-danger"
                     ></i>
-                    <p className="">
-                      ${priceFormatter(Number(product.price))}
-                    </p>
+                    <p className="">${priceFormatter(Number(product.price))}</p>
                   </div>
                 </div>
               ))
@@ -251,33 +243,28 @@ const CartPage = () => {
                 </p>
                 <i
                   class="bi bi-x-lg fs-2 text-success"
-                  onClick={() => { 
+                  onClick={() => {
                     setSuccessMessage("");
                     setInterval(() => window.location.reload(), 1000);
-                }}
+                  }}
                 ></i>
               </div>
             )}
-            {
-              lowStockMessage && (
-                <div
+            {lowStockMessage && (
+              <div
                 className="alert bg-danger-subtle border-danger-subtle border-5 d-flex justify-content-between align-items-center"
                 role="alert"
               >
                 <i class="bi bi-exclamation-triangle fs-1 text-danger"></i>
-                <p className="mt-3 fs-5 text-danger">
-                  {lowStockMessage}
-                </p>
+                <p className="mt-3 fs-5 text-danger">{lowStockMessage}</p>
                 <i
                   class="bi bi-x-lg fs-2 text-danger"
-                  onClick={() => { 
+                  onClick={() => {
                     setLowStockMessage("");
-                  
-                }}
+                  }}
                 ></i>
               </div>
-              )
-            }
+            )}
             <div className="modal-header">
               <h1 className="modal-title fs-5" id="checkoutModalLabel">
                 Checkout Form

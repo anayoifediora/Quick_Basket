@@ -1,8 +1,8 @@
-const jwt = require('jsonwebtoken');
-require('dotenv').config()
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
-const secret = process.env.TOKEN_SECRET
-const expiration = '2h';
+const secret = process.env.TOKEN_SECRET;
+const expiration = "2h";
 
 //This middleware is used to verify the authenticity of the token by the server
 //This middleware is then attached to the server file under the ApolloServer as "context"
@@ -14,7 +14,7 @@ module.exports = {
     // We split the token string into an array and return actual token
     //This is because we attached "Bearer" to the actual token, but we only need the token
     if (req.headers.authorization) {
-      token = token.split(' ').pop().trim();
+      token = token.split(" ").pop().trim();
     }
 
     if (!token) {
@@ -28,7 +28,7 @@ module.exports = {
       //Whatever is decoded from the token is assigned to the user here.
       req.user = data;
     } catch {
-      console.log('Invalid token');
+      console.log("Invalid token");
     }
 
     // return the request object so it can be passed to the resolver as `context`

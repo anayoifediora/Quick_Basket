@@ -18,22 +18,18 @@ const Home = () => {
     "https://res.cloudinary.com/ddn6rojif/image/upload/v1757723665/Sony_WH-1000XM5_1_tdgpqy.webp",
     "https://res.cloudinary.com/ddn6rojif/image/upload/v1757722975/Apple_Iphone_14_pro_2_tdqxar.jpg",
   ];
-  
-  
-    const searchTerm = useSelector((state) => state.searchTerm);
-    const { loading, data } = useQuery(QUERY_ALL_PRODUCTS);
-    const products = data?.products || [];
+
+  const searchTerm = useSelector((state) => state.searchTerm);
+  const { loading, data } = useQuery(QUERY_ALL_PRODUCTS);
+  const products = data?.products || [];
 
   return (
     <div className="d-flex flex-column align-items-center">
       <div className="custom-main-header">
-        <ProfileDisplay/>
+        <ProfileDisplay />
         <Navbar />
       </div>
-      { searchTerm &&        
-          <SearchResult/>
-        
-      }
+      {searchTerm && <SearchResult />}
       <section className="banner">
         <div className="banner-content">
           <h1>QuickBasket</h1>
@@ -55,37 +51,44 @@ const Home = () => {
           </Link>
         </div>
         <div className="products">
-            {loading ? (
-                        <h3>Loading...</h3>
-                    ) : (
-                        
-                            products.slice(3, 6).map((product, index) => (
-                                  
-                                
-                                  <div className="product-card mt-5" key={index}>
-                                      <Link to={`/products/${product._id}`}><img className="product-image"src={product.images[0]} alt=""/></Link>
-                                      <div className="product-details">
-                                          <p className="product-price">${priceFormatter(product.price)}</p>
-                                          <p className="product-name">{product.productName}</p>
-                                          <p className="product-rating text-body-secondary">Rating: {!product.averageRating ? "No ratings yet" : product.averageRating} <i style={!product.averageRating ? {color: "white"} : {color: 'gold'}}class="bi bi-star-fill"></i></p>
-                  
-                                      </div>
-                                      
-                                    
-            
-                                  </div>
-                                
-            
-                            ))
-                        
-                    )
-            
-                    }
+          {loading ? (
+            <h3>Loading...</h3>
+          ) : (
+            products.slice(3, 6).map((product, index) => (
+              <div className="product-card mt-5" key={index}>
+                <Link to={`/products/${product._id}`}>
+                  <img
+                    className="product-image"
+                    src={product.images[0]}
+                    alt=""
+                  />
+                </Link>
+                <div className="product-details">
+                  <p className="product-price">
+                    ${priceFormatter(product.price)}
+                  </p>
+                  <p className="product-name">{product.productName}</p>
+                  <p className="product-rating text-body-secondary">
+                    Rating:{" "}
+                    {!product.averageRating
+                      ? "No ratings yet"
+                      : product.averageRating}{" "}
+                    <i
+                      style={
+                        !product.averageRating
+                          ? { color: "white" }
+                          : { color: "gold" }
+                      }
+                      class="bi bi-star-fill"
+                    ></i>
+                  </p>
+                </div>
+              </div>
+            ))
+          )}
         </div>
-  
       </section>
-      
-      
+
       <Footer />
     </div>
   );

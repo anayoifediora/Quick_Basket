@@ -88,8 +88,8 @@ const Login = () => {
             />
           </div>
           <div id="emailHelp" class="form-text mb-3">
-              We'll never share your password with anyone.
-            </div>
+            We'll never share your password with anyone.
+          </div>
           <button type="submit" className="custom-login-btn">
             Login
           </button>

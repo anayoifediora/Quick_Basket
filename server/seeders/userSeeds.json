@@ -4,7 +4,7 @@
         "firstName": "John",
         "lastName": "Doe",
         "email": "jdoe@mail.com",
-        "password": "password01",
+        "password": "Password01",
         "phone": "0412345678",
         "address": {
             "street": "123 Main St",

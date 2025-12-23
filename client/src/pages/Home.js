@@ -54,7 +54,7 @@ const Home = () => {
           {loading ? (
             <h3>Loading...</h3>
           ) : (
-            products.slice(3, 6).map((product, index) => (
+            products.slice(3, 7).map((product, index) => (
               <div className="product-card mt-5" key={index}>
                 <Link to={`/products/${product._id}`}>
                   <img

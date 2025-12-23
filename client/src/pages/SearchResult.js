@@ -33,7 +33,7 @@ const SearchResult = () => {
             className="d-flex justify-content-between"
           >
             <h3 style={{ fontSize: "clamp(1rem, 2.3vw, 1.7rem)" }}>
-              Displaying {result.length} results...
+              { result.length < 2 ? `Displaying ${result.length} result...` : `Displaying ${result.length} results...`}
             </h3>
             <i
               onClick={() => dispatch(clearSearchTerm())}

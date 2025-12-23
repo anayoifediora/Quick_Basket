@@ -1,5 +1,6 @@
 //Import required Mongoose package
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 //Connects the app to the database using the Mongoose ODM library
 mongoose.connect(

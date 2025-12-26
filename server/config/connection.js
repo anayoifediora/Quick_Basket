@@ -14,5 +14,6 @@ mongoose.connection.once("open", () => {
 mongoose.connection.on("error", (err) => {
   console.error("❌ MongoDB connection error:", err);
 });
+console.log("🔎 MONGODB_URI =", process.env.MONGODB_URI);
 
 module.exports = mongoose.connection;

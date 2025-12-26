@@ -48,7 +48,7 @@ const Login = () => {
   return (
     <div className="custom-login-page">
       {error && (
-        <div className="text-danger fs-5" role="alert">
+        <div className="text-danger fs-5 bg-danger-subtle border-danger-subtle border-5 m-2 p-2" role="alert">
           {error.message}
         </div>
       )}

@@ -34,7 +34,7 @@ const ProfileDisplay = () => {
         <i className=" custom-search-icon bi bi-search"></i>
       </div>
       <div className="d-flex align-items-center">
-        <i className="cart-icon bi bi-basket2-fill">
+        <i className="cart-icon bi bi-basket2-fill" data-tooltip="Cart">
           {Auth.loggedIn() ? (
             <Link to="/cart" style={{ textDecoration: "none" }}>
               <span

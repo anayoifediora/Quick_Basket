@@ -242,7 +242,8 @@ const CartPage = () => {
                   Order created successfully. Thanks for your patronage!
                 </p>
                 <i
-                  class="bi bi-x-lg fs-2 text-success"
+                  class="order-success bi bi-x-lg fs-2 text-success"
+                  data-tooltip="Close"
                   onClick={() => {
                     setSuccessMessage("");
                     setInterval(() => window.location.reload(), 1000);

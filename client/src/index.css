@@ -86,7 +86,23 @@ body {
   font-size: 1.7rem;
   color: black;
 }
-
+.cart-icon::after, .order-success::after {
+  content:attr(data-tooltip); 
+  font-size: 1rem; 
+  font-style: italic;
+  position: relative;
+  top: -30px;
+  left: -20px;
+  border: 0.5px solid black;
+  background-color: #f0f0f0;
+  padding:2px 7px 2px 5px;
+  border-radius: 2px;
+  opacity: 0;
+}
+.cart-icon:hover::after {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
 .cart-length {
   background-color: rgb(148, 24, 24);
   color: white;
@@ -630,6 +646,11 @@ i:hover {
   justify-content: space-between;
 }
 
+.order-success:hover::after {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+  
+}
 /* Dashboard Page */
 
 .custom-dashboard-page {

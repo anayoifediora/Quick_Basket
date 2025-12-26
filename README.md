@@ -12,7 +12,7 @@ This project was developed as a comprehensive demonstration of modern full-stack
 The front-end was developed using *React*, including the *React-Router*. The backend was developed using *Apollo Server (GraphQL)*, *Node.js* and *Express.js*. For the database, the project utilized *MongoDB* and the *Mongoose ODM*. Other packages utilized include `bcrypt`, `JWT`, `dotenv`, `jsonwebtoken`, `apollo-server-express` e.t.c. CSS was based mostly on *Bootstrap 5*, including *Bootstrap Icons*.
 
 ## Link to Webpage
-Click [here](https://calm-depths-26151-e1b19dd0ae9d.herokuapp.com/)
+Click [here](https://calm-depths-26151-e1b19dd0ae9d.herokuapp.com/) to view the mini e-commerce web app.
 
 ## 📌 Features
 
